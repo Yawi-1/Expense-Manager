@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Sidebar from './Sidebar'
 import { Outlet } from 'react-router-dom'
-import { Menu } from 'lucide-react'
+import { Menu, User, UserCircle } from 'lucide-react'
 
 const DashboardLayout = () => {
     const [collapsed, setCollapsed] = useState(false)
@@ -25,15 +25,24 @@ const DashboardLayout = () => {
             >
 
                 {/* 🔥 Mobile Topbar */}
-                <div className="md:hidden fixed w-full top-0 flex items-center p-4 bg-gray-900 text-white">
-                    <button onClick={() => setMobileOpen(true)}>
+                <div className=" fixed w-full md:w-[84%] top-0 flex items-center  justify-between  p-4 bg-gray-900 text-white">
+                    <button className='md:hidden block' onClick={() => setMobileOpen(true)}>
                         <Menu />
                     </button>
                     <h1 className="ml-4 font-semibold">Atelier Finance</h1>
+                    <div className=' flex gap-x-4 items-center '>
+                        
+                        <button className='px-6 py-2 border rounded-lg cursor-pointer'>Reset</button>
+                        <button className='px-6 py-2 border rounded-lg cursor-pointer'>Edit</button>
+                        <div className='mx-4 shadow shadow-amber-300 cursor-pointer border border-gray-600 px-6 py-2 rounded-lg flex gap-2'>
+                            <UserCircle />
+                            <span>Hi,yawimalik786</span>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Page */}
-                <div className="p-4 md:p-6">
+                <div className="">
                     <Outlet />
                 </div>
             </div>
