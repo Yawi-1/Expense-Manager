@@ -25,24 +25,39 @@ const DashboardLayout = () => {
             >
 
                 {/* 🔥 Mobile Topbar */}
-                <div className=" fixed w-full md:w-[84%] top-0 flex items-center  justify-between  p-4 bg-gray-900 text-white">
-                    <button className='md:hidden block' onClick={() => setMobileOpen(true)}>
-                        <Menu />
-                    </button>
-                    <h1 className="ml-4 font-semibold">Atelier Finance</h1>
-                    <div className=' flex gap-x-4 items-center '>
-                        
-                        <button className='px-6 py-2 border rounded-lg cursor-pointer'>Reset</button>
-                        <button className='px-6 py-2 border rounded-lg cursor-pointer'>Edit</button>
-                        <div className='mx-4 shadow shadow-amber-300 cursor-pointer border border-gray-600 px-6 py-2 rounded-lg flex gap-2'>
-                            <UserCircle />
-                            <span>Hi,yawimalik786</span>
+                <div className="fixed top-0 left-0 md:left-[16%] w-full md:w-[84%] z-40">
+                    <div className="flex items-center justify-between px-4 py-3 bg-gray-900 text-white shadow-md">
+
+                        {/* Left Section */}
+                        <div className="flex items-center gap-3">
+                            <button
+                                className="md:hidden block"
+                                onClick={() => setMobileOpen(true)}
+                            >
+                                <Menu />
+                            </button>
+
+                            {/* Optional Logo / Title */}
+                            <h1 className="hidden sm:block text-sm md:text-base font-semibold">
+                                Atelier Finance
+                            </h1>
+                        </div>
+
+                        {/* Right Section */}
+                        <div className="flex items-center gap-2 sm:gap-4">
+                            <div className="flex items-center gap-2 border border-gray-600 px-2 py-1 sm:px-4 sm:py-2 rounded-lg shadow shadow-amber-300 cursor-pointer text-xs sm:text-sm md:text-base">
+                                <UserCircle size={18} />
+                                <span className=" sm:inline">
+                                    Hi, yawimalik786
+                                </span>
+                            </div>
+
                         </div>
                     </div>
                 </div>
 
                 {/* Page */}
-                <div className="">
+                <div className="md:mt-16 mt-12">
                     <Outlet />
                 </div>
             </div>
