@@ -1,12 +1,25 @@
 import React, { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
+  const { user, login, loading } = useAuth()
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  })
+
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+  console.log(user)
 
   const handleLogin = (e) => {
     e.preventDefault()
+    console.log(formData)
 
     // TODO: add auth logic
     console.log("Login clicked")
@@ -35,6 +48,9 @@ const Login = () => {
               Email Address
             </label>
             <input
+              name='email'
+              value={formData.email}
+              onChange={handleChange}
               type="email"
               placeholder='user@example.com'
               className='w-full mt-1 p-3 rounded-xl bg-white/10 border border-white/10 focus:border-white/30 outline-none'
@@ -47,6 +63,9 @@ const Login = () => {
               Security Key
             </label>
             <input
+              name='password'
+              value={formData.password}
+              onChange={handleChange}
               type={showPassword ? "text" : "password"}
               placeholder='••••••••'
               className='w-full mt-1 p-3 rounded-xl bg-white/10 border border-white/10 focus:border-white/30 outline-none'

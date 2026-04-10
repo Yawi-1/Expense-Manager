@@ -3,8 +3,9 @@ const { hashPassword, comparePassword, generateToken } = require('../config/help
 
 const signup = async (req, res) => {
     try {
-        const { fullName, email, password } = req.body;
-        if (!fullName || !email || !password) {
+        console.log(req.body)
+        const { username, email, password } = req.body;
+        if (!username || !email || !password) {
             return res.status(400).json({ message: 'All fields are required' });
         }
         const isEmail = await User.findOne({ email });
@@ -12,13 +13,14 @@ const signup = async (req, res) => {
             return res.status(400).json({ message: 'Email already exists' })
         }
         const hashedPassword = await hashPassword(password);
-        const user = await User.create({ fullName, email, password: hashedPassword })
+        const user = await User.create({ username, email, password: hashedPassword })
         const token = generateToken(user._id)
+        
         res.cookie("token", token, {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000
         })
-        res.status(201).json({ message: 'Account created successfully', data: { id: user._id, fullName: user.fullName, email: user.email, token } });
+        res.status(201).json({ message: 'Account created successfully', data: { id: user._id, username: user.username, email: user.email, token } });
 
     } catch (error) {
         res.status(500).json({ message: 'Internal server error', error: error.message });
@@ -44,7 +46,7 @@ const login = async (req, res) => {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000
         })
-        return res.status(200).json({ message: 'Login successfully.', data: { id: user._id, fullName: user.fullName, email: user.email, token } })
+        return res.status(200).json({ message: 'Login successfully.', data: { id: user._id, username: user.username, email: user.email, token } })
 
     } catch (error) {
         res.status(500).json({ message: 'Internal server error', error: error.message });
@@ -63,8 +65,8 @@ const userProfile = async (req, res) => {
         if (!user) {
             return res.json({ message: 'User not found' })
         }
-        const { fullName, email, profilePic, isVerified, role } = user
-        return res.json({ data: { fullName, email, profilePic, isVerified, role } })
+        const { username, email, profilePic, isVerified, role } = user
+        return res.json({ data: { username, email, profilePic, isVerified, role } })
     } catch (error) {
         res.json({ message: 'Internal server error' })
     }

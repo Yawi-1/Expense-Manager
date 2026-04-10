@@ -49,8 +49,7 @@ const Sidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) => {
                     {collapsed ? 'AF' : 'Atelier Finance'}
                 </h1>
 
-                {/* Links */}
-                {/* Links */}
+                
                 <div className="flex flex-col gap-2 flex-1">
 
                     <NavLink to="/dashboard" end className={linkStyle}>

@@ -25,7 +25,7 @@ const DashboardLayout = () => {
             >
 
                 {/* 🔥 Mobile Topbar */}
-                <div className="fixed top-0 left-0 md:left-[16%] w-full md:w-[84%] z-40">
+                <div className={`fixed top-0 left-0  w-full ${collapsed ? "md:w-[96%]" : "md:w-[84%]"} ${collapsed ? "md:left-[4%]" : "md:left-[16%]"} z-40`}>
                     <div className="flex items-center justify-between px-4 py-3 bg-gray-900 text-white shadow-md">
 
                         {/* Left Section */}

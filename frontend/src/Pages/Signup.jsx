@@ -1,14 +1,30 @@
 import React, { useState } from 'react'
 import { Check, Eye, EyeOff } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext';
 const Signup = () => {
   const [accept, setAccept] = useState(false);
-  console.log(accept)
   const [showPassword, setShowPassword] = useState(false)
+  const { signup, loading } = useAuth()
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: ''
+  })
+  console.log(formData)
 
-  const handleSignup = (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleSignup = async (e) => {
     e.preventDefault()
-
+    if (!formData.email || !formData.password || !formData.username) {
+      alert("Please fill all fields")
+      return
+    }
+    const result = await signup(formData)
+    console.log('Signup result:', result)
   }
   return (
     <div className='w-full h-screen bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center text-white'>
@@ -31,9 +47,12 @@ const Signup = () => {
           <div>
             <label className='text-xs uppercase font-semibold text-gray-300'>Full Name</label>
             <input
+              name="username"
               type="text"
               placeholder='Alex Sterling'
               className='w-full mt-1 p-3 rounded-xl bg-white/10 border border-white/10 focus:border-white/30 outline-none uppercase'
+              value={formData.username}
+              onChange={handleChange}
             />
           </div>
 
@@ -41,9 +60,12 @@ const Signup = () => {
           <div>
             <label className='text-xs uppercase font-semibold text-gray-300'>Email Address</label>
             <input
+              name='email'
               type="email"
               placeholder='user@example.com'
               className='w-full mt-1 p-3 rounded-xl bg-white/10 border border-white/10 focus:border-white/30 outline-none'
+              value={formData.email}
+              onChange={handleChange}
             />
           </div>
 
@@ -51,6 +73,9 @@ const Signup = () => {
           <div className='relative'>
             <label className='text-xs uppercase font-semibold text-gray-300'>Security Key</label>
             <input
+              name='password'
+              value={formData.password}
+              onChange={handleChange}
               type={`${showPassword ? "text" : "password"}`}
               placeholder='••••••••'
               className='w-full mt-1 p-3 rounded-xl bg-white/10 border border-white/10 focus:border-white/30 outline-none'
