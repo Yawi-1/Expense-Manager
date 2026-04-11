@@ -10,9 +10,13 @@ import {
     LogOut,
 } from 'lucide-react'
 
-const Sidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) => {
+const Sidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen, logout}) => {
 
     const location = useLocation()
+
+    const handleLogout = async () => {
+        await logout()
+    }
 
     // 🔥 Auto close on route change
     React.useEffect(() => {
@@ -49,7 +53,7 @@ const Sidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) => {
                     {collapsed ? 'AF' : 'Atelier Finance'}
                 </h1>
 
-                
+
                 <div className="flex flex-col gap-2 flex-1">
 
                     <NavLink to="/dashboard" end className={linkStyle}>
@@ -89,7 +93,7 @@ const Sidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) => {
                     </button>
 
                     {/* Logout */}
-                    <button className="bg-red-500 hover:bg-red-600 p-2 rounded-lg">
+                    <button onClick={handleLogout} className="bg-red-500 hover:bg-red-600 p-2 rounded-lg">
                         {!collapsed ? "Logout" : <LogOut size={16} />}
                     </button>
                 </div>

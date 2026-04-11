@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import Sidebar from './Sidebar'
 import { Outlet } from 'react-router-dom'
 import { Menu, User, UserCircle } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
 
 const DashboardLayout = () => {
     const [collapsed, setCollapsed] = useState(false)
     const [mobileOpen, setMobileOpen] = useState(false)
+    const { user,logout } = useAuth()
 
     return (
         <div className="flex">
@@ -16,6 +18,7 @@ const DashboardLayout = () => {
                 setCollapsed={setCollapsed}
                 mobileOpen={mobileOpen}
                 setMobileOpen={setMobileOpen}
+                logout={logout}
             />
 
             {/* Main Content */}
@@ -47,8 +50,8 @@ const DashboardLayout = () => {
                         <div className="flex items-center gap-2 sm:gap-4">
                             <div className="flex items-center gap-2 border border-gray-600 px-2 py-1 sm:px-4 sm:py-2 rounded-lg shadow shadow-amber-300 cursor-pointer text-xs sm:text-sm md:text-base">
                                 <UserCircle size={18} />
-                                <span className=" sm:inline">
-                                    Hi, yawimalik786
+                                <span className="capitalize sm:inline">
+                                    Hi, {user?.data?.username || "User"}
                                 </span>
                             </div>
 

@@ -11,7 +11,7 @@ const Signup = () => {
     email: '',
     password: ''
   })
-  console.log(formData)
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -23,8 +23,7 @@ const Signup = () => {
       alert("Please fill all fields")
       return
     }
-    const result = await signup(formData)
-    console.log('Signup result:', result)
+     await signup(formData)
   }
   return (
     <div className='w-full h-screen bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center text-white'>

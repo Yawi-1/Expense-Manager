@@ -3,7 +3,6 @@ const { hashPassword, comparePassword, generateToken } = require('../config/help
 
 const signup = async (req, res) => {
     try {
-        console.log(req.body)
         const { username, email, password } = req.body;
         if (!username || !email || !password) {
             return res.status(400).json({ message: 'All fields are required' });
@@ -12,16 +11,16 @@ const signup = async (req, res) => {
         if (isEmail) {
             return res.status(400).json({ message: 'Email already exists' })
         }
-        const hashedPassword = await hashPassword(password);
+        const hashedPassword = await hashPassword(password)
         const user = await User.create({ username, email, password: hashedPassword })
+
         const token = generateToken(user._id)
-        
+
         res.cookie("token", token, {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000
         })
         res.status(201).json({ message: 'Account created successfully', data: { id: user._id, username: user.username, email: user.email, token } });
-
     } catch (error) {
         res.status(500).json({ message: 'Internal server error', error: error.message });
     }
@@ -56,7 +55,7 @@ const login = async (req, res) => {
 const logout = (req, res) => {
     res.clearCookie("token");
     res.json({ message: "Logged out" });
-};
+}
 
 const userProfile = async (req, res) => {
     try {

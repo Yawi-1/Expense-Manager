@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext'
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
-  const { user, login, loading } = useAuth()
+  const { login, loading } = useAuth()
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -15,14 +15,10 @@ const Login = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
-  console.log(user)
 
-  const handleLogin = (e) => {
+  const handleLogin =  async(e) => {
     e.preventDefault()
-    console.log(formData)
-
-    // TODO: add auth logic
-    console.log("Login clicked")
+    await login(formData)
   }
 
   return (
